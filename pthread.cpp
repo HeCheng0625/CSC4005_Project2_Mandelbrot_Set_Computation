@@ -4,7 +4,7 @@
 
 int n_thd; // number of threads
 
-typedef struct {
+typedef struct {   // a = thd, b = n_thd
     //TODO: specify your arguments for threads
     int a;
     int b;
@@ -13,15 +13,23 @@ typedef struct {
 
 
 void* worker(void* args) {
-    //TODO: procedure in each threads
-    // the code following is not a necessary, you can replace it.
-    
-    // Args* my_arg = (Args*) args;
-    // int a = my_arg->a;
-    // int b = my_arg->b;
-
-    //TODO END
-
+    Args* my_arg = (Args*) args;
+    int a = my_arg->a;
+    int b = my_arg->b;
+    Point* p = data;
+    p += a * (total_size / b);
+    if (a < b - 1) {
+        for (int i = a * (total_size / b); i < (a + 1) * (total_size / b); i++) {
+            compute(p);
+            p++;
+        }
+    }
+    else {
+        for (int i = a * (total_size / b); i < total_size; i++) {
+            compute(p);
+            p++;
+        }
+    }
 }
 
 
